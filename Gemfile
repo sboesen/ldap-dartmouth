@@ -10,6 +10,9 @@ gem 'sqlite3'
 # Add haml gem to rails
 gem 'haml-rails'
 
+# Add sidekiq gem for background processing
+gem 'sidekiq'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
