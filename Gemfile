@@ -13,6 +13,10 @@ gem 'haml-rails'
 # Add sidekiq gem for background processing
 gem 'sidekiq'
 
+# Add Sinatra and Slim for sidekiq's web interface
+gem 'sinatra', require: false
+gem 'slim'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
