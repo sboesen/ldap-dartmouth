@@ -17,6 +17,8 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 
+# Add net-ldap
+gem 'net-ldap'
 
 # Gems used only for assets and not required
 # in production environments by default.
