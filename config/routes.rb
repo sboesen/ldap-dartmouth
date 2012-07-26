@@ -1,4 +1,14 @@
 LdapDartmouth::Application.routes.draw do
+  get "search/index"
+
+  get "search/new"
+
+  get "search/create"
+
+  get "search/destroy"
+
+  get "search/show"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +58,7 @@ LdapDartmouth::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'search#new'
 
   # See how all your routes lay out with "rake routes"
 
