@@ -13,11 +13,9 @@
         #user-navigation
           %ul.wat-cf
             %li
-              %a{:href => "#"}= t("web-app-theme.profile", :default => "Profile")
+              %a{:href => searches_url}= t("web-app-theme.profile", :default => "Searches")
             %li
-              %a{:href => "#"}= t("web-app-theme.settings", :default => "Settings")
-            %li
-              %a.logout{:href => "/logout"}= t("web-app-theme.logout", :default => "Logout")
+              %a{:href => new_search_url}= t("web-app-theme.profile", :default => "New Search")
         #main-navigation
           %ul.wat-cf
       #wrapper.wat-cf
