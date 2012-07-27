@@ -1,11 +1,32 @@
-%p#notice= notice
+.block
+  .content
+    %h2.title= "Results for #{@search.groups_to_sentence}"
+    %div.inner
+      - if @search.search_results.present?
+        %table.table
+          %tr.first
+            %th Name
+            %th 
+            %th 
+            %th
+            %th
 
-- if @search.search_errors.present?
-  = @search.search_errors
-- elsif @search.search_results.present?
-  = @search.search_results
-- else
-  %p#notice= "Searching, refresh in a couple seconds..."
+          - @search.search_results.split(',').each do |person|
+            %tr{:class => cycle("odd", "even")}
+              %td= person
+              %td 
+              %td 
+              %td 
+              %td
+
+      - elsif @search.search_errors.present?
+        %div.flash
+          %div.message.error
+            %p= @search.search_errors
+      - else
+        %div.flash
+          %div.message.notice
+            %p= "Searching, refresh in a couple seconds..."
 
 
 -# %p

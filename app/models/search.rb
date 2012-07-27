@@ -18,5 +18,8 @@ class Search < ActiveRecord::Base
     clear_results!
     SearchWorker.perform_async(self.id)
   end
+  def groups_to_sentence
+    groups.collect { |group| group.name }.to_sentence
+  end
 
 end

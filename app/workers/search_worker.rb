@@ -127,7 +127,7 @@ class SearchWorker
     end
     search_to_lookup.clear_results!
     if members.count > 0
-      search_to_lookup.update_attributes({search_results: members.to_s})
+      search_to_lookup.update_attributes({search_results: members.join(',')})
     else
       search_to_lookup.update_attributes({search_errors: "No members found."})
     end

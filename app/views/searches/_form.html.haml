@@ -1,18 +1,21 @@
-= nested_form_for @search do |f|
-  -if @search.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@search.errors.count, "error")} prohibited this search from being saved:"
-      %ul
-        - @search.errors.full_messages.each do |msg|
-          %li= msg
+.block
+  .content
+    %h2.title Add Search
+    = nested_form_for @search do |f|
+      -if @search.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@search.errors.count, "error")} prohibited this search from being saved:"
+          %ul
+            - @search.errors.full_messages.each do |msg|
+              %li= msg
 
-  = f.fields_for :groups
-  = f.link_to_add "Add a search group", :groups
-  -# .field
-  -#   = f.label :search_errors
-  -#   = f.text_area :search_errors
-  -# .field
-  -#   = f.label :search_results
-  -#   = f.text_area :search_results
-  .actions
-    = f.submit 'Search'
+      = f.fields_for :groups
+      = f.link_to_add(:groups, class: 'button') do
+        Add Group 
+
+      .group.navform.wat-cf
+        %button.button{:type => "submit"}
+          = image_tag("web-app-theme/icons/tick.png", :alt => "#{t("web-app-theme.save", :default => "Save")}")
+          = t("web-app-theme.save", :default => "Save")
+        %span.text_button_padding= t("web-app-theme.or", :default => "or")
+        = link_to t("web-app-theme.cancel", :default => "Cancel"), root_url, :class => "text_button_padding link_button"
