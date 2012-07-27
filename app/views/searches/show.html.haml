@@ -1,12 +1,20 @@
 %p#notice= notice
 
-%p
-  %b Search errors:
+- if @search.search_errors.present?
   = @search.search_errors
-%p
-  %b Search results:
+- elsif @search.search_results.present?
   = @search.search_results
+- else
+  %p#notice= "Searching, refresh in a couple seconds..."
 
-= link_to 'Edit', edit_search_path(@search)
+
+-# %p
+-#   %b Search errors:
+-#   = @search.search_errors
+-# %p
+-#   %b Search results:
+-#   = @search.search_results
+
+= link_to 'Edit Search', edit_search_path(@search)
 \|
-= link_to 'Back', searches_path
+= link_to 'All Searches', searches_path

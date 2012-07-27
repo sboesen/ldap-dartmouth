@@ -2,16 +2,17 @@
 
 %table
   %tr
-    %th Search errors
-    %th Search results
-    %th
+    %th Status
+    %th 
+    %th Group
     %th
     %th
 
   - @searches.each do |search|
     %tr
-      %td= search.search_errors
-      %td= search.search_results
+      %td= search.finished? ? 'Complete' : 'Searching...'
+      %td
+      %td= search.groups.first.name 
       %td= link_to 'Show', search
       %td= link_to 'Edit', edit_search_path(search)
       %td= link_to 'Destroy', search, :confirm => 'Are you sure?', :method => :delete
