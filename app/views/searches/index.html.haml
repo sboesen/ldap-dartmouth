@@ -1,0 +1,15 @@
+- title "Searches"
+
+%table
+  %tr
+    %th Errors
+    %th Results
+  - for search in @searches
+    %tr
+      %td= search.errors
+      %td= search.results
+      %td= link_to 'Show', search
+      %td= link_to 'Edit', edit_search_path(search)
+      %td= link_to 'Destroy', search, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Search", new_search_path

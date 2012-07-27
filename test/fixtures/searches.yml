@@ -1,0 +1,7 @@
+one:
+  errors: MyString
+  results: MyString
+
+two:
+  errors: MyString
+  results: MyString

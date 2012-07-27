@@ -1,0 +1,12 @@
+= form_for @search do |f|
+  = f.error_messages
+  %p
+    = f.label :search_errors
+    %br
+    = f.text_field :search_errors
+  %p
+    = f.label :search_results
+    %br
+    = f.text_field :search_results
+  %p
+    = f.submit
