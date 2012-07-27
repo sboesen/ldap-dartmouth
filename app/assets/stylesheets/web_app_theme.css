@@ -7,3 +7,9 @@
  */
 
 /* Write here your css for overriding the theme's rules */
+#main .block .content {
+  margin-left: 30px;
+}
+#main .block .content h2 {
+  margin-left: 0;
+}
