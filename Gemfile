@@ -13,6 +13,11 @@ gem 'haml-rails'
 # fancy theme!
 gem 'web-app-theme', :git =>'git://github.com/pilu/web-app-theme.git'
 
+group :development do
+  gem 'hpricot'
+  gem 'ruby_parser'
+end
+
 # Get some nifty generaters up in here
 gem "nifty-generators", :group => :development
 
