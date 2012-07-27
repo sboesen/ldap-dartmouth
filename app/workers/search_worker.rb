@@ -88,46 +88,48 @@ class LDAPMember
   end
 end
 
-def perform(search_id)
-  # TODO: check that user/pass are getting loaded from yaml file
-  # TODO: get search from search_id
-  # TODO: grab CN from search
-  members = []
-  groups_to_search = [ARGV.shift]
-  groups_searched = []
+class SearchWorker
+  include Sidekiq::Worker
+  sidekiq_options retry: false
+  def perform(search_id)
+    members = []
+    search_to_lookup = Search.find(search_id)
+    groups_to_search = search_to_lookup.groups.collect { |group| group.name }
+    groups_searched = []
 
-  searcher = LDAPGroupSearcher.new
+    searcher = LDAPGroupSearcher.new
 
-  groups_to_search.each do |group|
-    # group should be a CN
-    puts "Searching for group #{group}"
+    groups_to_search.each do |group|
+      puts "Searching for group #{group}"
 
-    searcher.clear_filters!
-    filter = Net::LDAP::Filter.eq("CN",  group)
+      searcher.clear_filters!
+      filter = Net::LDAP::Filter.eq("CN",  group)
 
-    searcher.add_filter filter
-    searcher.treebase = "dc=kiewit, dc=dartmouth, dc=edu"
-    searcher.search
+      searcher.add_filter filter
+      searcher.treebase = "dc=kiewit, dc=dartmouth, dc=edu"
+      searcher.search
 
-    # p searcher.sub_groups
-    sub_groups = searcher.sub_groups.collect { |sub_group| sub_group.cn }
-    # puts "Got sub groups: #{sub_groups.to_s}" unless sub_groups.nil?
-    group_members = searcher.members.collect { |member| member.cn }
-    # puts "Got members: #{group_members.to_s}" unless group_members.nil?
+      sub_groups = searcher.sub_groups.collect { |sub_group| sub_group.cn }
 
-    groups_to_search.push sub_groups unless sub_groups.empty?
-    members.push group_members unless group_members.empty?
-    groups_searched.push group
+      group_members = searcher.members.collect { |member| member.cn }
+       puts "Got members: #{group_members.to_s}" unless group_members.nil?
+
+      groups_to_search.push sub_groups unless sub_groups.empty?
+      sub_groups.each do |sub_group|
+        unless (groups_to_search & groups_searched).include?(sub_group)
+          groups_to_search.push sub_group
+        end
+      end
+      group_members.each do |group_member|
+        members.push group_member unless members.include? group_member
+      end
+      groups_searched.push group
+    end
+    search_to_lookup.clear_results!
+    if members.count > 0
+      search_to_lookup.update_attributes({search_results: members.to_s})
+    else
+      search_to_lookup.update_attributes({search_errors: "No members found."})
+    end
   end
 end
-
-
-
-# groups_searched.each do |group|
-# end
-
-# members.each do |member|
-# end
-
-
-

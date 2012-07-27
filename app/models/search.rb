@@ -10,4 +10,13 @@ class Search < ActiveRecord::Base
   def ellipses
     (self.groups.count > 1) ? '...' : ''
   end
+
+  def clear_results!
+    self.update_attributes({search_errors: nil, search_results: nil})
+  end
+  def run!
+    clear_results!
+    SearchWorker.perform_async(self.id)
+  end
+
 end
