@@ -1,22 +1,24 @@
 %h1 Listing searches
 
-%table
-  %tr
-    %th Status
-    %th 
-    %th Group
-    %th
-    %th
+.block
+  .content
+    %h2.title Searches
+    %div.inner
+      %table.table
+        %tr.first
+          %th Group
+          %th Status
+          %th 
+          %th
+          %th
 
-  - @searches.each do |search|
-    %tr
-      %td= search.finished? ? 'Complete' : 'Searching...'
-      %td
-      %td= search.groups.first.name 
-      %td= link_to 'Show', search
-      %td= link_to 'Edit', edit_search_path(search)
-      %td= link_to 'Destroy', search, :confirm => 'Are you sure?', :method => :delete
-
+        - @searches.each do |search|
+          %tr{:class => cycle("odd", "even")}
+            %td= search.groups.first.name + search.ellipses
+            %td= search.finished? ? 'Complete' : 'In Progress'
+            %td= link_to 'Show', search
+            %td= link_to 'Edit', edit_search_path(search)
+            %td= link_to 'Remove', search, :confirm => 'Are you sure?', :method => :delete
 %br
 
 = link_to 'New Search', new_search_path

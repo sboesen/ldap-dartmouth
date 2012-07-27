@@ -7,4 +7,7 @@ class Search < ActiveRecord::Base
   def finished?
     self.search_errors.present? || self.search_results.present?
   end
+  def ellipses
+    (self.groups.count > 1) ? '...' : ''
+  end
 end
