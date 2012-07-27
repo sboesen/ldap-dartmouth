@@ -12,6 +12,7 @@
       %div#groups
         = f.fields_for :groups
 
+        = f.autocomplete_field :search_errors, ldap_group_autocomplete_ldap_group_name_path
       .group.navform.wat-cf
         %button.button{:type => "submit"}
           = image_tag("web-app-theme/icons/tick.png", :alt => "#{t("web-app-theme.save", :default => "Save")}")

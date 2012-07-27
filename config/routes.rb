@@ -1,5 +1,9 @@
 require 'sidekiq/web'
 LdapDartmouth::Application.routes.draw do
+  get "ldap_group/show"
+  get "ldap_group/autocomplete_ldap_group_name"
+
+
   resources :searches
 
   # The priority is based upon order of creation:
