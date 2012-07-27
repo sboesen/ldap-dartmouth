@@ -10,6 +10,15 @@ gem 'sqlite3'
 # Add haml gem to rails
 gem 'haml-rails'
 
+# fancy theme!
+gem 'web-app-theme', :git =>'git://github.com/pilu/web-app-theme.git'
+
+# Get some nifty generaters up in here
+gem "nifty-generators", :group => :development
+
+# Nested form gem for simple... well, nested forms
+gem "nested_form"
+
 # Add sidekiq gem for background processing
 gem 'sidekiq'
 
@@ -48,3 +57,5 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+gem "mocha", :group => :test
