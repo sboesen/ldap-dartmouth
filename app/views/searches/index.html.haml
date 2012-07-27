@@ -16,9 +16,9 @@
           %tr{:class => cycle("odd", "even")}
             %td= search.groups.first.name + search.ellipses
             %td= search.finished? ? 'Complete' : 'In Progress'
-            %td= link_to 'Show', search
-            %td= link_to 'Edit', edit_search_path(search)
-            %td= link_to 'Remove', search, :confirm => 'Are you sure?', :method => :delete
+            %td 
+            %td 
+            %td= raw search_link_paths(search)
 %br
 
 = link_to 'New Search', new_search_path
