@@ -1,7 +1,7 @@
 class Search < ActiveRecord::Base
   attr_accessible :search_errors, :search_results, :groups_attributes
   has_many :groups
-  accepts_nested_attributes_for :groups
+  accepts_nested_attributes_for :groups, allow_destroy: true
 
   default_scope includes(:groups)
   def finished?
