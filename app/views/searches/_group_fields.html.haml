@@ -1,5 +1,6 @@
 %p
   = f.label(:name, "Group:", class: 'label')
-  = f.text_field :name
+  -# = f.text_field :name
+  = f.autocomplete_field :name, ldap_group_autocomplete_ldap_group_name_path
   = f.link_to_remove(class: 'label') do
     Remove

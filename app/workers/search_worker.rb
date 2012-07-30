@@ -1,12 +1,12 @@
 require 'rubygems'
 require 'net/ldap'
 
-CONFIG_PATH = "#{Rails.root}/config/ldap.yml" if CONFIG_PATH.nil?
+CONFIG_PATH = "#{Rails.root}/config/ldap.yml" 
 
 vals = YAML.load(File.read(CONFIG_PATH))
 
-USERNAME = vals['username'] if USERNAME.nil?
-PASSWORD = vals['password'] if PASSWORD.nil?
+USERNAME = vals['username']
+PASSWORD = vals['password']
 
 class LDAPGroupSearcher
   attr_accessor :treebase
