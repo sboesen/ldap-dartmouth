@@ -69,4 +69,5 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
+gem 'nyan-cat-formatter', '~> 0.0.7'
 #gem "mocha", :group => :test

@@ -75,6 +75,7 @@ GEM
     nested_form (0.2.2)
     net-ldap (0.3.1)
     nifty-generators (0.4.6)
+    nyan-cat-formatter (0.0.7)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -167,6 +168,7 @@ DEPENDENCIES
   nested_form
   net-ldap
   nifty-generators
+  nyan-cat-formatter (~> 0.0.7)
   rails (= 3.2.5)
   rails3-jquery-autocomplete
   rspec-rails
