@@ -1,12 +1,12 @@
 require 'rubygems'
 require 'net/ldap'
 
-CONFIG_PATH = "#{Rails.root}/config/ldap.yml"
+CONFIG_PATH = "#{Rails.root}/config/ldap.yml" if CONFIG_PATH.nil?
 
 vals = YAML.load(File.read(CONFIG_PATH))
 
-USERNAME = vals['username']
-PASSWORD = vals['password']
+USERNAME = vals['username'] if USERNAME.nil?
+PASSWORD = vals['password'] if PASSWORD.nil?
 
 class LDAPGroupSearcher
   attr_accessor :treebase
@@ -36,18 +36,18 @@ class LDAPGroupSearcher
   end
   def search
     @ldap.search(:base => @treebase, :filter => @filter, :attributes => @attributes) do |entry|
-      # puts "DN: #{entry.dn}"
+      puts "DN: #{entry.dn}"
       @sub_groups = []
       @members = []
       entry.each do |attribute, values|
         values.each do |value|
-          #puts "Attr: #{attribute} value: #{value}"
+          puts "Attr: #{attribute} value: #{value}"
           if attribute == :givenname
             given_name = value
           elsif attribute == :sn
             sur_name = value
           elsif attribute == :memberof || attribute == :member
-            member = LDAPMember.new(value)
+            member = LDAPPersonMember.new(value)
             if member.group?
               @sub_groups.push member
             elsif member.person?
@@ -60,7 +60,7 @@ class LDAPGroupSearcher
   end
 end
 
-class LDAPMember
+class LDAPPersonMember
   attr_accessor :cn, :dn, :ou
   def initialize(member_string)
     #member_string something like:
@@ -97,6 +97,7 @@ class SearchWorker
     groups_to_search = search_to_lookup.groups.collect { |group| group.name }
     groups_searched = []
 
+    puts "Trying to search for #{groups_to_search}, got search_id #{search_id}"
     searcher = LDAPGroupSearcher.new
 
     groups_to_search.each do |group|
@@ -112,7 +113,7 @@ class SearchWorker
       sub_groups = searcher.sub_groups.collect { |sub_group| sub_group.cn }
 
       group_members = searcher.members.collect { |member| member.cn }
-       puts "Got members: #{group_members.to_s}" unless group_members.nil?
+      puts "Got members: #{group_members.to_s}" unless group_members.nil?
 
       groups_to_search.push sub_groups unless sub_groups.empty?
       sub_groups.each do |sub_group|
