@@ -21,6 +21,9 @@ group :development do
   gem 'ruby_parser'
 end
 
+group :test do
+  gem 'rspec-rails'
+end
 # Get some nifty generaters up in here
 gem "nifty-generators", :group => :development
 
