@@ -40,8 +40,8 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 
-# Add net-ldap
-gem 'net-ldap'
+# Add net-ldap Krogebry's repo to fix dumb M$ utf8 garbage bug
+gem 'net-ldap', git: 'git://github.com/krogebry/ruby-net-ldap-1.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
