@@ -21,8 +21,11 @@ group :development do
   gem 'ruby_parser'
 end
 
+gem 'rspec-rails', group: [:development, :test]
 group :test do
-  gem 'rspec-rails'
+  gem 'database_cleaner'
+  gem 'nyan-cat-formatter', '~> 0.0.7'
+  gem 'factory_girl_rails'
 end
 # Get some nifty generaters up in here
 gem "nifty-generators", :group => :development
@@ -69,5 +72,4 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
-gem 'nyan-cat-formatter', '~> 0.0.7'
 #gem "mocha", :group => :test
