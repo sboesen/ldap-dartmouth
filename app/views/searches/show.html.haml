@@ -2,7 +2,7 @@
   .content
     %h2.title= "Results for #{@search.groups_to_sentence}"
     %div.inner
-      - if @search.search_results.present?
+      - if @search.groups.first.search_results.present?
         %table.table
           %tr.first
             %th Name
@@ -11,7 +11,7 @@
             %th
             %th
 
-          - @search.search_results.split(',').each do |person|
+          - @search.groups.first.search_results.split(',').each do |person|
             %tr{:class => cycle("odd", "even")}
               %td= person
               %td 
@@ -19,10 +19,10 @@
               %td 
               %td
 
-      - elsif @search.search_errors.present?
+      - elsif @search.groups.first.search_errors.present?
         %div.flash
           %div.message.error
-            %p= @search.search_errors
+            %p= @search.groups.first.search_errors
       - else
         %div.flash
           %div.message.notice

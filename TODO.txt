@@ -1,0 +1,9 @@
+TODO: Create models for search_results and search_errors.
+On update for any Group record, run new search. (should only run on name being
+changed)
+Then just have partials for search_results and search_errors.
+
+one condition that will be tough to handle: In GroupSearcherWorker or whatever
+it's called, if there's more than one group, how do you handle that? I
+think... what I'll do it create a new Group for that under search... in the
+worker. 

@@ -74,7 +74,7 @@ class LDAPMember
   end
 end
 
-class LDAPGroupWorker
+class LdapGroupWorker
   include Sidekiq::Worker
   sidekiq_options retry: false
   def perform(task)

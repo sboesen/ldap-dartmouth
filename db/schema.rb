@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120730191105) do
+ActiveRecord::Schema.define(:version => 20120731131346) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
@@ -20,10 +20,25 @@ ActiveRecord::Schema.define(:version => 20120730191105) do
     t.datetime "updated_at",     :null => false
     t.text     "search_results"
     t.text     "search_errors"
+    t.boolean  "searched"
   end
 
   create_table "ldap_groups", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "search_errors", :force => true do |t|
+    t.text     "value"
+    t.integer  "group_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "search_results", :force => true do |t|
+    t.text     "value"
+    t.integer  "group_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
