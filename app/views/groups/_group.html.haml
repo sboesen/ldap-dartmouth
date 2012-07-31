@@ -17,7 +17,7 @@
           %td
           %td
 
-- elsif search_error.present?
+- elsif group.search_error.value.present?
   %div.flash
     %div.message.error
-      %p= group.search_error
+      %p= group.search_error.value

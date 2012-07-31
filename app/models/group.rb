@@ -22,7 +22,7 @@ class Group < ActiveRecord::Base
   end
 
   def finished?
-    self.search_result.present? || self.search_error.present?
+    self.search_result.value.present? || self.search_error.value.present?
   end
 
   def search!
