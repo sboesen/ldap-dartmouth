@@ -7,7 +7,6 @@ vals = YAML.load(File.read(CONFIG_PATH))
 
 USERNAME = vals['username']
 PASSWORD = vals['password']
-puts "USERNAME: #{USERNAME} PASSWORD: #{PASSWORD}"
 
 class LDAPGroupFetcher
   attr_accessor :treebase
