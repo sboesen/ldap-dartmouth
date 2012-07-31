@@ -1,0 +1,23 @@
+%h2.title= group.name
+%div.inner
+- if group.search_result.value.present?
+  %table.table
+    %tr.first
+      %th Name
+      %th
+      %th
+      %th
+      %th
+
+      - group.search_result.value.split(',').each do |person|
+        %tr{:class => cycle("odd", "even")}
+          %td= person
+          %td
+          %td
+          %td
+          %td
+
+- elsif search_error.present?
+  %div.flash
+    %div.message.error
+      %p= group.search_error

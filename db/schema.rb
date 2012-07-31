@@ -16,11 +16,8 @@ ActiveRecord::Schema.define(:version => 20120731131346) do
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.integer  "search_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.text     "search_results"
-    t.text     "search_errors"
-    t.boolean  "searched"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "ldap_groups", :force => true do |t|

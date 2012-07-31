@@ -1,5 +1,5 @@
 class SearchError < ActiveRecord::Base
-  attr_accessible :value
+  attr_accessible :value, :group_id
   belongs_to :group
 
   def clear!

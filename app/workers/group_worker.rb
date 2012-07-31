@@ -130,9 +130,9 @@ class GroupWorker
     end
     group_to_lookup.clear_results!
     if results.count > 0
-      group_to_lookup.update_attributes(search_result: SearchResult.create!(value: results.join(',')))
+      group_to_lookup.search_result.update_attributes(value: results.join(','))
     else
-      group_to_lookup.update_attributes(search_error: SearchError.create!(value: "No members found."))
+      group_to_lookup.search_error.update_attributes(value: "No results found.")
     end
   end
 end
