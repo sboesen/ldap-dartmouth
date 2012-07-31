@@ -3,7 +3,7 @@
     - if @search.finished?
       = render @search.groups
     - else
-      %h2.title= @search.groups_to_sentence
+      %h1.title= @search.groups_to_sentence
       %div.flash
         %div.message.notice
           %p= "Searching, refresh in a couple seconds..."
