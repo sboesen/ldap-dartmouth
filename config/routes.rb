@@ -3,6 +3,9 @@ LdapDartmouth::Application.routes.draw do
   get "ldap_group/show"
   get "ldap_group/autocomplete_ldap_group_name"
 
+  get "cron/update_groups"
+
+  match 'cron/search_and_email/:search_name' => 'cron#search_and_email'
 
   resources :searches
 

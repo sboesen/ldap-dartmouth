@@ -12,6 +12,17 @@
   .content
     %h1.title Options
     =link_to 'View as PDF', search_path(@search, format: 'pdf'), class: 'button'
+    =nested_form_for @search do |f|
+      %div#groups
+        = f.fields_for :user_emails
+
+      .group.navform.wat-cf
+        %button.button{:type => "submit"}
+          = image_tag("web-app-theme/icons/tick.png", :alt => "#{t("web-app-theme.save", :default => "Save")}")
+          = t("web-app-theme.save", :default => "Save")
+        = f.link_to_add(:user_emails, class: 'button') do
+          Add Group 
+
 = link_to 'Edit Search', edit_search_path(@search)
 \|
 = link_to 'All Searches', searches_path

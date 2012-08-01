@@ -2,6 +2,8 @@
   .content                                                                                                                                                                         
     %h2.title Add Search
     = nested_form_for @search do |f|
+      %h3 Name (referenced to in cron jobs):
+      = f.text_field :name
       -if @search.errors.any?
         #error_explanation
           %h2= "#{pluralize(@search.errors.count, "error")} prohibited this search from being saved:"

@@ -1,7 +1,9 @@
 class Search < ActiveRecord::Base
-  attr_accessible :groups_attributes, :groups
+  attr_accessible :groups_attributes, :groups, :name, :user_emails_attributes
   has_many :groups
+  has_many :user_emails
   accepts_nested_attributes_for :groups, allow_destroy: true
+  accepts_nested_attributes_for :user_emails, allow_destroy: true
 
   default_scope includes(:groups)
 
@@ -18,6 +20,12 @@ class Search < ActiveRecord::Base
 
   def groups_to_sentence
     groups.collect { |group| group.name }.to_sentence
+  end
+
+  def run!
+    groups.each do |group|
+      group.search!
+    end
   end
 
 end

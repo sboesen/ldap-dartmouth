@@ -34,4 +34,10 @@ LdapDartmouth::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "mailhub.dartmouth.edu",
+    :domain               => 'dartmouth.edu'
+  }
+  config.action_mailer.raise_delivery_errors = true
 end
