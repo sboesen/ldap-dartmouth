@@ -8,6 +8,10 @@
         %div.message.notice
           %p= "Searching, refresh in a couple seconds..."
 
+.block#search-info
+  .content
+    %h1.title Options
+    =link_to 'View as PDF', search_path(@search, format: 'pdf'), class: 'button'
 = link_to 'Edit Search', edit_search_path(@search)
 \|
 = link_to 'All Searches', searches_path
