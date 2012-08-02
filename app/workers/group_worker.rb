@@ -90,7 +90,6 @@ end
 
 class GroupWorker
   include Sidekiq::Worker
-  sidekiq_options retry: false
   def perform(group_id)
     group_to_lookup = Group.find(group_id)
     return if group_to_lookup.nil?
