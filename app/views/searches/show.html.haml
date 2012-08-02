@@ -11,7 +11,7 @@
 .block#search-info
   .content
     %h1.title Options
-    =link_to 'View as PDF', search_path(@search, format: 'pdf'), class: 'button'
+    =link_to 'Download XLS', search_path(@search, format: 'xls'), class: 'button'
     =nested_form_for @search do |f|
       %div#groups
         = f.fields_for :user_emails

@@ -28,4 +28,13 @@ class Search < ActiveRecord::Base
     end
   end
 
+  def to_csv(options = {})
+    rows = CSV.generate(options) do |row|
+      groups.each do |group|
+        row << [group.name, group.search_result.value.split(',')].flatten!
+      end
+    end
+    rows
+  end
+
 end

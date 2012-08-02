@@ -1,0 +1,14 @@
+-rows = []
+-@search.groups.each do |group|
+  -row = [group.name, group.search_result.value.split(',')].flatten!
+  -rows.push row
+%table{ 'border' => "1"}
+  -rows.each do |row|
+    %tr
+      -column = 0
+      -row.each do |data|
+        -if column == 0
+          %td{ :style => 'font-weight: bold'}= data
+        -else
+          %td= data
+        -column += 1

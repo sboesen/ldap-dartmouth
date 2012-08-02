@@ -16,9 +16,6 @@ gem 'web-app-theme', :git =>'git://github.com/pilu/web-app-theme.git'
 # autocomplete for rails
 gem 'rails3-jquery-autocomplete'
 
-# prawn for pdf gen
-gem 'prawn_rails'
-
 group :development do
   gem 'hpricot'
   gem 'ruby_parser'
