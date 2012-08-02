@@ -19,7 +19,7 @@ class SearchesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @search }
-      format.xls { render text: @search.to_csv(col_sep: "\t") }
+      format.xls 
     end
   end
 
