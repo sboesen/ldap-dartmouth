@@ -5,7 +5,7 @@ class MailWorker
 
   def perform(search_id)
     search = Search.find(search_id)
-    attachment_url = Rails.application.routes.url_helpers.search_url(search, format: 'pdf', :host => 'localhost:3000')
+    attachment_url = Rails.application.routes.url_helpers.search_url(search, format: 'xls', :host => 'localhost:3000')
     Rails.logger.info "Sending attachment - #{attachment_url}"
     attachment = open(attachment_url) { |f| f.read }
     search.user_emails.each do |email|
