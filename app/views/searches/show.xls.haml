@@ -1,5 +1,6 @@
 -rows = []
 -@search.groups.each do |group|
+  -next if group.search_result.value.nil? 
   -row = [group.name, group.search_result.value.split(',')].flatten!
   -rows.push row
 %table{ 'border' => "1"}
