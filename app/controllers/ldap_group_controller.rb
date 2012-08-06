@@ -1,5 +1,8 @@
 class LdapGroupController < ApplicationController
   autocomplete :ldap_group, :name
-  def show
+  
+  def index
+    @ldap_groups = LdapGroup.all
   end
+
 end
