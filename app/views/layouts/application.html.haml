@@ -14,7 +14,9 @@
         #user-navigation
           %ul.wat-cf
             %li
-              %a{:href => searches_url}= t("web-app-theme.profile", :default => "Searches")
+              %a{:href => ldap_group_index_url}= t("web-app-theme.profile", :default => "List Groups")
+            %li
+              %a{:href => searches_url}= t("web-app-theme.profile", :default => "Search History")
             %li
               %a{:href => new_search_url}= t("web-app-theme.profile", :default => "New Search")
         #main-navigation
