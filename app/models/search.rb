@@ -36,5 +36,19 @@ class Search < ActiveRecord::Base
     end
     rows
   end
+  def display_emails
+    # 3 max, plus elipses
+    if user_emails.size > 0
+      ellipses = (user_emails.size == 1) ? '' : ' ...'
+      emails = user_emails[0..2].collect do |user_email|
+        user_email.email
+      end
+      html = emails.join('<br>') + ellipses
+      html.html_safe
+    else
+      ""
+    end
+
+  end
 
 end

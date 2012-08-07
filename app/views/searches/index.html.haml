@@ -7,7 +7,7 @@
         %tr.first
           %th Group
           %th Status
-          %th 
+          %th Email
           %th
           %th
 
@@ -15,7 +15,7 @@
           %tr{:class => cycle("odd", "even")}
             %td= search.groups.first.name + search.ellipses
             %td= search.finished? ? 'Complete' : 'In Progress'
-            %td 
+            %td= search.display_emails
             %td 
             %td= raw search_link_paths(search)
 %br
