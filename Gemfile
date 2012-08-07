@@ -20,10 +20,8 @@ gem 'execjs'
 gem 'therubyracer'
 
 # mysql gem for production db
-group :production do
-  gem 'mysql'
-  gem 'mysql2'
-end
+gem 'mysql'
+gem 'mysql2'
 
 group :development do
   gem 'hpricot'
