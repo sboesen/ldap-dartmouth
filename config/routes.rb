@@ -9,6 +9,7 @@ LdapDartmouth::Application.routes.draw do
   match 'cron/search_and_email/:search_name' => 'cron#search_and_email'
 
   resources :searches
+  get "searches/create_temp_search/:group_name" => "searches#create_temp_search", as: 'create_temp_search'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
