@@ -3,7 +3,7 @@ class SearchesController < ApplicationController
   # GET /searches
   # GET /searches.json
   def index
-    @searches = Search.all
+    @searches = Search.where(temp: false)
 
     respond_to do |format|
       format.html # index.html.erb

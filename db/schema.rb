@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120801173003) do
+ActiveRecord::Schema.define(:version => 20120807134120) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
@@ -41,9 +41,10 @@ ActiveRecord::Schema.define(:version => 20120801173003) do
   end
 
   create_table "searches", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.string   "name"
+    t.boolean  "temp",       :default => false
   end
 
   create_table "user_emails", :force => true do |t|

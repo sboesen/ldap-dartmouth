@@ -1,5 +1,5 @@
 class Search < ActiveRecord::Base
-  attr_accessible :groups_attributes, :groups, :name, :user_emails_attributes
+  attr_accessible :groups_attributes, :groups, :name, :user_emails_attributes, :temp
   has_many :groups
   has_many :user_emails
   accepts_nested_attributes_for :groups, allow_destroy: true
