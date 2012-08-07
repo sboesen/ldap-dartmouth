@@ -1,8 +1,8 @@
 -rows = []
 -@search.groups.each do |group|
-  -next if group.search_result.value.nil? 
-  -row = [group.name, group.search_result.value.split(',')].flatten!
-  -rows.push row
+  -rows.push [group.name, group.search_result.value.split(',')].flatten! unless group.search_result.value.nil?
+  -rows.push ["#{group.name}'s parent groups:", group.group_parents.value.split(',')].flatten! unless group.group_parents.value.nil?
+  -rows.push ["#{group.name}'s child groups:", group.group_children.value.split(',')].flatten! unless group.group_children.value.nil?
 %table{ 'border' => "1"}
   -rows.each do |row|
     %tr
