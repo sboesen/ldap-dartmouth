@@ -12,7 +12,7 @@ class LDAPGroupSearcher
   attr_accessor :treebase
   attr_reader :parent_groups, :sub_groups, :members
   def initialize
-    @attributes = ["member"]
+    @attributes = ["member", "memberOf"]
     @ldap = Net::LDAP.new :host => 'kiewit.dartmouth.edu',
          :port => 636,
          :encryption => :simple_tls,
@@ -132,8 +132,8 @@ class GroupWorker
     group_to_lookup.clear_results!
     
     group_to_lookup.search_result.update_attributes(value: group_members.join(',')) if group_members.count > 0
-    group_to_lookup.sub_groups.update_attributes(value: sub_groups.join(',')) if sub_groups.count > 0
-    group_to_lookup.parent_groups.update_attributes(value: parent_groups.join(',')) if parent_groups.count > 0
+    group_to_lookup.group_children.update_attributes(value: sub_groups.join(',')) if sub_groups.count > 0
+    group_to_lookup.group_parents.update_attributes(value: parent_groups.join(',')) if parent_groups.count > 0
     group_to_lookup.search_error.update_attributes(value: "No results found.") if sub_groups.count == 0 && parent_groups.count == 0 && group_members.count == 0
   end
 end
