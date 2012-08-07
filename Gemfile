@@ -19,6 +19,9 @@ gem 'rails3-jquery-autocomplete'
 gem 'execjs'
 gem 'therubyracer'
 
+# mysql gem for production db
+gem 'mysql2', :group => :production
+
 group :development do
   gem 'hpricot'
   gem 'ruby_parser'
