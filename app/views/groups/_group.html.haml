@@ -1,4 +1,12 @@
 %h1.title= group.name
+- if group.group_children.value.present? 
+  %div.flash
+    %div.message.notice
+      %p= "Group \"#{group.name}\" delegates permissions to some groups. See below."
+- if group.group_parents.value.present? 
+  %div.flash
+    %div.message.notice
+      %p= "Group \"#{group.name}\" inherits permissions from some groups. See below."
 %div.inner
 - if group.group_children.value.present?
   %table.table
