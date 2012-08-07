@@ -39,7 +39,7 @@ class Search < ActiveRecord::Base
   def display_emails
     # 3 max, plus elipses
     if user_emails.size > 0
-      ellipses = (user_emails.size == 1) ? '' : ' ...'
+      ellipses = (user_emails.size < 3) ? '' : ' ...'
       emails = user_emails[0..2].collect do |user_email|
         user_email.email
       end
