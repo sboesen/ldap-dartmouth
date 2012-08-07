@@ -44,6 +44,7 @@ class LDAPGroupFetcher
         end
       end
     end
+    @groups = @groups.uniq { |group| group.cn }
     puts "Finished searching... total: #{@groups.count}"
   end
 end

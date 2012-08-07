@@ -10,9 +10,9 @@ PASSWORD = vals['password']
 
 class LDAPGroupSearcher
   attr_accessor :treebase
-  attr_reader :sub_groups, :members
+  attr_reader :parent_groups, :sub_groups, :members
   def initialize
-    @attributes = ["member"]
+    @attributes = ["member", "memberOf"]
     @ldap = Net::LDAP.new :host => 'kiewit.dartmouth.edu',
          :port => 636,
          :encryption => :simple_tls,
@@ -22,6 +22,7 @@ class LDAPGroupSearcher
                :password => PASSWORD
          }
     @sub_groups = []
+    @parent_groups = []
     @members = []
   end
   def add_filter(filter)
@@ -36,17 +37,23 @@ class LDAPGroupSearcher
   end
   def search
     @sub_groups = []
+    @parent_groups = []
     @members = []
     @ldap.search(:base => @treebase, :filter => @filter, :attributes => @attributes) do |entry|
       puts "DN: #{entry.dn}"
       entry.each do |attribute, values|
         values.each do |value|
-          puts "Attr: #{attribute} value: #{value}"
+          # puts "Attr: #{attribute} value: #{value}"
           if attribute == :givenname
             given_name = value
           elsif attribute == :sn
             sur_name = value
-          elsif attribute == :memberof || attribute == :member
+          elsif attribute == :memberof 
+            member = LDAPPersonMember.new(value)
+            if member.group?
+              @parent_groups.push member
+            end
+          elsif attribute == :member
             member = LDAPPersonMember.new(value)
             if member.group?
               @sub_groups.push member
@@ -93,45 +100,44 @@ class GroupWorker
   def perform(group_id)
     group_to_lookup = Group.find(group_id)
     return if group_to_lookup.nil?
-    original_group = group_to_lookup.name
-    groups_to_search = [original_group]
-    groups_searched = []
+    group = group_to_lookup.name
     results = []
-    puts "Trying to search for #{groups_to_search}, got search_id #{group_id}"
+    puts "Trying to search for #{group}, got search_id #{group_id}"
     searcher = LDAPGroupSearcher.new
 
-    groups_to_search.each do |group|
-      puts "Searching for group #{group}"
+    puts "Searching for group #{group}"
 
-      searcher.clear_filters!
-      filter = Net::LDAP::Filter.eq("CN",  group)
+    searcher.clear_filters!
+    filter = Net::LDAP::Filter.eq("CN",  group)
 
-      searcher.add_filter filter
-      searcher.treebase = "dc=kiewit, dc=dartmouth, dc=edu"
-      searcher.search
+    searcher.add_filter filter
+    searcher.treebase = "dc=kiewit, dc=dartmouth, dc=edu"
+    searcher.search
 
-      sub_groups = searcher.sub_groups.collect { |sub_group| sub_group.cn }
+    sub_groups = searcher.sub_groups.collect { |sub_group| sub_group.cn }
+    parent_groups = searcher.parent_groups.collect { |parent_group| parent_group.cn }
+    group_members = searcher.members.collect { |member| member.cn }
 
-      puts "Search finished."
-      p searcher.members
-      group_members = searcher.members.collect { |member| member.cn }
-      puts "Got members: #{group_members.to_s}" unless group_members.nil?
+    puts "Search finished."
 
-      sub_groups.each do |sub_group|
-        unless (groups_to_search & groups_searched).include?(sub_group)
-          groups_to_search.push sub_group
-        end
-      end
-      group_members.each do |group_member|
-        results.push group_member unless results.include? group_member
-      end
-      groups_searched.push group
+    puts "Sub_groups:"
+    sub_groups.each do |sub_group|
+      puts sub_group
+    end
+    puts "Parent_groups:"
+    parent_groups.each do |parent_group|
+      puts parent_group
+    end
+    puts "Group_members:"
+    group_members.each do |group_member|
+      puts group_member
+      results.push group_member unless results.include? group_member
     end
     group_to_lookup.clear_results!
-    if results.count > 0
-      group_to_lookup.search_result.update_attributes(value: results.join(','))
-    else
-      group_to_lookup.search_error.update_attributes(value: "No results found.")
-    end
+    
+    group_to_lookup.search_result.update_attributes(value: group_members.join(',')) if group_members.count > 0
+    group_to_lookup.group_children.update_attributes(value: sub_groups.join(',')) if sub_groups.count > 0
+    group_to_lookup.group_parents.update_attributes(value: parent_groups.join(',')) if parent_groups.count > 0
+    group_to_lookup.search_error.update_attributes(value: "No results found.") if sub_groups.count == 0 && parent_groups.count == 0 && group_members.count == 0
   end
 end

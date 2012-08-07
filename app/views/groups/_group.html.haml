@@ -1,9 +1,50 @@
 %h1.title= group.name
+- if group.group_children.value.present? 
+  %div.flash
+    %div.message.notice
+      %p= "Group \"#{group.name}\" delegates permissions to some groups. See below."
+- if group.group_parents.value.present? 
+  %div.flash
+    %div.message.notice
+      %p= "Group \"#{group.name}\" inherits permissions from some groups. See below."
 %div.inner
+- if group.group_children.value.present?
+  %table.table
+    %tr.first
+      %th Child Group
+      %th
+      %th
+      %th
+      %th
+
+      - group.group_children.value.split(',').each do |group_child|
+        %tr{:class => cycle("odd", "even")}
+          %td= group_child
+          %td
+          %td
+          %td
+          %td
+- if group.group_parents.value.present?
+  %table.table
+    %tr.first
+      %th Parent Group
+      %th
+      %th
+      %th
+      %th
+
+      - group.group_parents.value.split(',').each do |group_parent|
+        %tr{:class => cycle("odd", "even")}
+          %td= group_parent 
+          %td
+          %td
+          %td
+          %td
+
 - if group.search_result.value.present?
   %table.table
     %tr.first
-      %th Name
+      %th Person
       %th
       %th
       %th
