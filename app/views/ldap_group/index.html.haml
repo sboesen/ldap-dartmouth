@@ -12,7 +12,7 @@
 
         - @ldap_groups.each do |group|
           %tr{:class => cycle("odd", "even")}
-            %td= group.name
+            %td= link_to group.name, create_temp_search_url(group.name)
             %td 
             %td 
             %td 
