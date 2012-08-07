@@ -1,22 +1,22 @@
 
 .block
   .content
-    %h2.title Searches
+    %h1.title Searches
     %div.inner
       %table.table
         %tr.first
+          %th Name
           %th Group
-          %th Status
           %th Email
-          %th
+          %th Status
           %th
 
         - @searches.each do |search|
           %tr{:class => cycle("odd", "even")}
+            %td= (search.name.present?) ? search.name : ''
             %td= search.groups.first.name + search.ellipses
-            %td= search.finished? ? 'Complete' : 'In Progress'
             %td= search.display_emails
-            %td 
+            %td= search.finished? ? 'Complete' : 'In Progress'
             %td= raw search_link_paths(search)
 %br
 
