@@ -82,4 +82,26 @@ class SearchesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def create_temp_search
+    @search = Search.new(temp:true)
+    @search.groups
+
+    respond_to do |format|
+      if @search.save
+        @group = Group.new(name: params[:group_name])
+        @group.search = @search
+        if @group.save
+          format.html { redirect_to @search }
+          format.json { render json: @search, status: :created, location: @search }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @search.errors, status: :unprocessable_entity }
+        end
+      else
+        format.html { render action: "new" }
+        format.json { render json: @search.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 end

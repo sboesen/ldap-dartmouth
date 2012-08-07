@@ -1,5 +1,5 @@
 class Group < ActiveRecord::Base
-  attr_accessible :name, :search_result, :search_error
+  attr_accessible :name, :search_result, :search_error, :search
   belongs_to :search
 
 
