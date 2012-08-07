@@ -44,15 +44,6 @@ ActiveRecord::Schema.define(:version => 20120807165648) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "search_children", :force => true do |t|
-    t.string   "value"
-    t.integer  "search_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "search_children", ["search_id"], :name => "index_search_children_on_search_id"
-
   create_table "search_errors", :force => true do |t|
     t.text     "value"
     t.integer  "group_id"

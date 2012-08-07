@@ -48,10 +48,14 @@ class LDAPGroupSearcher
             given_name = value
           elsif attribute == :sn
             sur_name = value
-          elsif attribute == :memberof || attribute == :member
+          elsif attribute == :memberof 
             member = LDAPPersonMember.new(value)
             if member.group?
-              puts "Attribute #{attribute} value #{value} IS A GROUP"
+              @parent_groups.push member
+            end
+          elsif attribute == :member
+            member = LDAPPersonMember.new(value)
+            if member.group?
               @sub_groups.push member
             elsif member.person?
               @members.push member
