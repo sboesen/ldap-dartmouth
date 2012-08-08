@@ -12,7 +12,6 @@ class LDAPGroupFetcher
   attr_accessor :treebase
   attr_reader :groups
   def initialize
-    @attributes = ["member"]
     @ldap = Net::LDAP.new :host => 'kiewit.dartmouth.edu',
          :port => 636,
          :encryption => :simple_tls,
@@ -35,12 +34,17 @@ class LDAPGroupFetcher
   end
   def search
     puts "Searching..."
-    @ldap.search(:base => @treebase, :filter => @filter, :attributes => @attributes) do |entry|
+    @ldap.search(:base => @treebase) do |entry|
       # puts "DN: #{entry.dn}"
       entry.each do |attribute, values|
         values.each do |value|
-          member = LDAPMember.new(value)
-          @groups.push member if member.security_group?
+          if value.ascii_only?
+            puts "Attribute: #{attribute.to_s} Value: #{value.to_s}"
+            if attribute.to_s == 'member' || attribute.to_s == 'memberof'
+              member = LDAPMember.new(value)
+              @groups.push member if member.security_group?
+            end
+          end
         end
       end
     end
@@ -83,13 +87,10 @@ class LdapGroupWorker
     searcher = LDAPGroupFetcher.new
 
     searcher.clear_filters!
-    filter = Net::LDAP::Filter.eq("objectClass", "Group")
 
-    searcher.add_filter filter
     searcher.treebase = "dc=kiewit, dc=dartmouth, dc=edu"
     searcher.search
     puts "Called search. SHould be finished now."
-    p searcher.groups
     groups = searcher.groups.collect { |group| group.cn }
     LdapGroup.delete_all
     groups.each do |group|
