@@ -28,7 +28,7 @@ class Group < ActiveRecord::Base
   end
 
   def finished?
-    self.search_result.value.present? || self.search_error.value.present?
+    self.search_result.value.present? || self.search_error.value.present? || self.group_parents.value.present? || self.group_children.value.present?
   end
 
   def search!
