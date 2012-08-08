@@ -93,7 +93,7 @@ class LdapGroupWorker
     groups = searcher.groups.collect { |group| group.cn }
     LdapGroup.delete_all
     groups.each do |group|
-      LdapGroup.create!(name: group)
+      LdapGroup.create!(name: group) unless group.nil?
     end
   end
 end
