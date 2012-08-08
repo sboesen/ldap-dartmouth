@@ -1,12 +1,12 @@
 require 'rubygems'
 require 'net/ldap'
 
-CONFIG_PATH = "#{Rails.root}/config/ldap.yml"
+CONFIG_PATH ||= "#{Rails.root}/config/ldap.yml"
 
 vals = YAML.load(File.read(CONFIG_PATH))
 
-USERNAME = vals['username']
-PASSWORD = vals['password']
+USERNAME ||= vals['username']
+PASSWORD ||= vals['password']
 
 class LDAPGroupFetcher
   attr_accessor :treebase
