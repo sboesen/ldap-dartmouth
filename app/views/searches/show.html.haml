@@ -14,6 +14,9 @@
     =link_to 'Download XLS', search_path(@search, format: 'xls'), class: 'button'
     =nested_form_for @search do |f|
       %div#groups
+        = f.label :email_message, "Email Message:"
+        = f.text_area :email_message
+      %div#groups
         = f.fields_for :user_emails
 
       .group.navform.wat-cf
