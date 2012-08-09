@@ -8,6 +8,7 @@ class CronController < ApplicationController
     search_name = params[:search_name]
     return if search_name.blank?
     search = Search.find_by_name(search_name)
+    return if search.nil?
     #TODO email task
     search.run!
     done = false
