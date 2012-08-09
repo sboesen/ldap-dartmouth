@@ -4,7 +4,7 @@ class ReportMailer < ActionMailer::Base
     attachments['security_report.xls'] = attachment
     mail(to: email, subject: "Dartmouth Security Group Update (#{Date.today})") do |format|
       if message.nil?
-        format.text { render 'mail_pdf' }
+        format.html { render 'mail_pdf' }
       else
         format.text { render :text => message }
       end
