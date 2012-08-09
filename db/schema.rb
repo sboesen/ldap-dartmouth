@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807165648) do
+ActiveRecord::Schema.define(:version => 20120809133850) do
 
   create_table "group_children", :force => true do |t|
     t.string   "value"
@@ -59,10 +59,11 @@ ActiveRecord::Schema.define(:version => 20120807165648) do
   end
 
   create_table "searches", :force => true do |t|
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.string   "name"
-    t.boolean  "temp",       :default => false
+    t.boolean  "temp",          :default => false
+    t.text     "email_message"
   end
 
   create_table "user_emails", :force => true do |t|
