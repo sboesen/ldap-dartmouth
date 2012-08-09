@@ -12,6 +12,15 @@
   .content
     %h1.title Options
     =link_to 'Download XLS', search_path(@search, format: 'xls'), class: 'button'
+    -if @search.name.blank?
+      Add name to send email.
+    - else
+      =link_to 'Send Email Now', search_and_email_path(@search.name), class: 'button'
+    %br
+    %br
+    %br
+    %br
+
     =nested_form_for @search do |f|
       %div#groups
         = f.label :email_message, "Email Message:"

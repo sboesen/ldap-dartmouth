@@ -6,7 +6,7 @@ LdapDartmouth::Application.routes.draw do
   get 'ldap_group/index'
   get "cron/update_groups"
 
-  match 'cron/search_and_email/:search_name' => 'cron#search_and_email'
+  match 'cron/search_and_email/:search_name' => 'cron#search_and_email', as: 'search_and_email'
 
   resources :searches
   get "searches/create_temp_search/:group_name" => "searches#create_temp_search", as: 'create_temp_search'
